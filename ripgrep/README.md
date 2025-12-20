@@ -1,4 +1,4 @@
-# Ripgrep Configuration
+# 🔍 Ripgrep Configuration
 
 ## Overview
 [Ripgrep (rg)](https://github.com/BurntSushi/ripgrep) is a blazingly fast recursive text search tool that respects .gitignore files and provides excellent performance for code searching.
@@ -22,8 +22,8 @@ stow ripgrep
 ```
 
 ## Configuration Location
-Configuration file: `~/.config/ripgrep/config`
-Set in shell: `export RIPGREP_CONFIG_PATH=~/.config/ripgrep/config`
+Configuration file: `.ripgreprc`
+After running `stow ripgrep`, the configuration file will be symlinked to `~/.config/.ripgreprc`, and `ripgrep` will automatically detect it.
 
 ## Common Usage
 ```bash

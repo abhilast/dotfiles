@@ -15,7 +15,7 @@ echo "🚀 Starting dotfiles installation..."
 
 # 1. Check OS
 if [[ "$OSTYPE" != "darwin"* ]]; then
-    echo -e "${RED}This script is designed for macOS. Modify for Linux if needed.${NC}"
+    echo -e "${RED}This script supports macOS only.${NC}"
     exit 1
 fi
 
@@ -87,10 +87,12 @@ STOW_ORDER=(
     "zsh"       # Shell config
     "nvim"      # Neovim
     "kitty"     # Terminal
+    "ghostty"   # GPU terminal
     "ripgrep"   # Search tool
     "lsd"       # ls replacement
     "btop"      # System monitor
     "broot"     # File manager
+    "atuin"     # Shell history
     "go"        # Go config
     "linearmouse" # Mouse config
 )

@@ -7,13 +7,20 @@
 # APPEARANCE & THEME
 # ===========================
 theme = dracula
+shell-integration = zsh
 #background-opacity = 0.95
 
 # ===========================
 # FONT CONFIGURATION
 # ===========================
-font-family = "JetBrains Mono"
+font-family = "JetBrainsMono Nerd Font Mono"
 font-size = 14
+adjust-cell-height = 20%
+adjust-cell-width = 2%
+
+# Retina display font rendering (equivalent to kitty's macos_thicken_font 0.25)
+font-thicken = true
+font-thicken-strength = 70
 
 # ===========================
 # CURSOR CONFIGURATION
@@ -44,6 +51,8 @@ scrollback-limit = 10000
 # MOUSE & INTERACTION
 # ===========================
 mouse-hide-while-typing = true
+link-url = true
+clipboard-trim-trailing-spaces = true
 
 # ===========================
 # MACOS SETTINGS
@@ -64,6 +73,11 @@ resize-overlay-position = center
 clipboard-read = ask
 clipboard-write = allow
 
+# ===========================
+# SHADERS
+# ===========================
+custom-shader-animation = always
+custom-shader = shaders/cursor_tail.glsl
 # ===========================
 # KEYBINDINGS
 # ===========================
