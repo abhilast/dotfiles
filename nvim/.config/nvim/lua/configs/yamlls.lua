@@ -2,40 +2,8 @@
 local M = {}
 
 function M.setup()
-  local lspconfig = require("lspconfig")
-  local nvlsp = require("nvchad.configs.lspconfig")
-  
   -- YAML Language Server with Kubernetes schemas
-  lspconfig.yamlls.setup({
-    on_attach = function(client, bufnr)
-      nvlsp.on_attach(client, bufnr)
-      -- Enable completion explicitly
-      vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-    end,
-    on_init = nvlsp.on_init,
-    capabilities = vim.tbl_deep_extend("force", nvlsp.capabilities, {
-      textDocument = {
-        completion = {
-          completionItem = {
-            documentationFormat = { "markdown", "plaintext" },
-            snippetSupport = true,
-            preselectSupport = true,
-            insertReplaceSupport = true,
-            labelDetailsSupport = true,
-            deprecatedSupport = true,
-            commitCharactersSupport = true,
-            tagSupport = { valueSet = { 1 } },
-            resolveSupport = {
-              properties = {
-                "documentation",
-                "detail",
-                "additionalTextEdits",
-              },
-            },
-          },
-        },
-      },
-    }),
+  vim.lsp.config("yamlls", {
     filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
     settings = {
       redhat = {
@@ -77,6 +45,8 @@ function M.setup()
       },
     },
   })
+
+  vim.lsp.enable("yamlls")
 end
 
 return M

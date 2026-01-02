@@ -1,12 +1,9 @@
 require("nvchad.configs.lspconfig").defaults()
 
-local lspconfig = require "lspconfig"
-local nvlsp = require "nvchad.configs.lspconfig"
-
 -- DevOps and Infrastructure LSP servers
 local servers = {
   "html",
-  "cssls", 
+  "cssls",
   "pyright",           -- Python
   "gopls",             -- Go
   "terraformls",       -- Terraform
@@ -21,43 +18,27 @@ local servers = {
 
 -- Enable servers with default config (only if installed)
 for _, lsp in ipairs(servers) do
-  local ok, _ = pcall(function()
-    lspconfig[lsp].setup {
-      on_attach = nvlsp.on_attach,
-      on_init = nvlsp.on_init,
-      capabilities = nvlsp.capabilities,
-    }
+  pcall(function()
+    vim.lsp.enable(lsp)
   end)
-  if not ok then
-    vim.notify("LSP server " .. lsp .. " not found. Install it with :MasonInstall " .. lsp, vim.log.levels.WARN)
-  end
 end
 
--- Python specific configuration (only if installed)
-pcall(function()
-  lspconfig.pyright.setup {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
-    settings = {
-      python = {
-        analysis = {
-          autoSearchPaths = true,
-          diagnosticMode = "workspace",
-          useLibraryCodeForTypes = true,
-          typeCheckingMode = "basic"
-        }
+-- Python specific configuration
+vim.lsp.config("pyright", {
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = "workspace",
+        useLibraryCodeForTypes = true,
+        typeCheckingMode = "basic"
       }
     }
   }
-end)
+})
 
--- Go specific configuration (only if installed)
-pcall(function()
-  lspconfig.gopls.setup {
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
+-- Go specific configuration
+vim.lsp.config("gopls", {
   settings = {
     gopls = {
       analyses = {
@@ -69,25 +50,15 @@ pcall(function()
       completeUnimported = true,
     },
   },
-}
-end)
+})
 
--- Terraform configuration (only if installed)
-pcall(function()
-  lspconfig.terraformls.setup {
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
+-- Terraform configuration
+vim.lsp.config("terraformls", {
   filetypes = { "terraform", "hcl" },
-}
-end)
+})
 
--- JSON configuration (only if installed)
-pcall(function()
-  lspconfig.jsonls.setup {
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
+-- JSON configuration
+vim.lsp.config("jsonls", {
   settings = {
     json = {
       schemas = (function()
@@ -101,15 +72,10 @@ pcall(function()
       validate = { enable = true },
     },
   },
-}
-end)
+})
 
--- SQL LSP configuration (only if installed)
-pcall(function()
-  lspconfig.sqls.setup {
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
+-- SQL LSP configuration
+vim.lsp.config("sqls", {
   settings = {
     sqls = {
       connections = {
@@ -126,15 +92,10 @@ pcall(function()
       },
     },
   },
-}
-end)
+})
 
--- Docker LSP configuration (only if installed)
-pcall(function()
-  lspconfig.dockerls.setup {
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
+-- Docker LSP configuration
+vim.lsp.config("dockerls", {
   settings = {
     docker = {
       languageserver = {
@@ -144,17 +105,7 @@ pcall(function()
       },
     },
   },
-}
-end)
-
--- Docker Compose LSP (only if installed)
-pcall(function()
-  lspconfig.docker_compose_language_service.setup {
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
-}
-end)
+})
 
 -- YAML Language Server is configured separately
 -- See configs/yamlls.lua for the configuration
