@@ -92,3 +92,6 @@ export PATH
 
 # Claude Token limit
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
+
+# 1Password SSH agent
+export SSH_AUTH_SOCK=~/.1password/agent.sock
