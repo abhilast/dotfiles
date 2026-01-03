@@ -6,7 +6,7 @@
 # ===========================
 # APPEARANCE & THEME
 # ===========================
-theme = Gruvbox Dark
+theme = Dracula
 shell-integration = zsh
 #background-opacity = 0.95
 
@@ -14,20 +14,20 @@ shell-integration = zsh
 # FONT CONFIGURATION
 # ===========================
 font-family = "JetBrainsMono Nerd Font Mono"
-font-size = 16
-adjust-cell-height = 20%
-adjust-cell-width = 2%
+font-size = 14
+#adjust-cell-height = 20%
+#adjust-cell-width = 2%
 
 # Retina display font rendering (equivalent to kitty's macos_thicken_font 0.25)
 font-thicken = true
-font-thicken-strength = 125
+font-thicken-strength = 120
 
 # ===========================
 # CURSOR CONFIGURATION
 # ===========================
-cursor-style = block
+cursor-style = bar
 cursor-style-blink = true
-
+adjust-cursor-thickness = 4
 # ===========================
 # WINDOW & LAYOUT
 # ===========================
