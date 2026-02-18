@@ -6,51 +6,54 @@
 # ===========================
 # APPEARANCE & THEME
 # ===========================
-theme = Dracula
-shell-integration = zsh
+#theme = Gruvbox Dark
+#theme = Apple System Colors Light
+#theme = Catppuccin Latte
+theme = light:Builtin Light,dark:Nord
 #background-opacity = 0.95
 
 # ===========================
 # FONT CONFIGURATION
 # ===========================
 font-family = "JetBrainsMono Nerd Font Mono"
-font-size = 14
-#adjust-cell-height = 20%
-#adjust-cell-width = 2%
+font-size = 15
+adjust-cell-height = 20%
+adjust-cell-width = 2%
 
 # Retina display font rendering (equivalent to kitty's macos_thicken_font 0.25)
 font-thicken = true
-font-thicken-strength = 120
 
 # ===========================
 # CURSOR CONFIGURATION
 # ===========================
-cursor-style = bar
-cursor-style-blink = true
-adjust-cursor-thickness = 4
+cursor-style = block
+cursor-style-blink = false
+adjust-cursor-thickness = 2
 # ===========================
 # WINDOW & LAYOUT
 # ===========================
 window-width = 120
 window-height = 35
 window-decoration = true
+window-save-state = always
 
 # ===========================
 # PERFORMANCE SETTINGS
 # ===========================
-confirm-close-surface = false
+confirm-close-surface = always
 quit-after-last-window-closed = true
 shell-integration = zsh
 
 # ===========================
 # SCROLLBACK
 # ===========================
-scrollback-limit = 10000
+scrollback-limit = 100000
 
 # ===========================
 # MOUSE & INTERACTION
 # ===========================
 mouse-hide-while-typing = true
+copy-on-select = true
 link-url = true
 clipboard-trim-trailing-spaces = true
 
@@ -58,7 +61,7 @@ clipboard-trim-trailing-spaces = true
 # MACOS SETTINGS
 # ===========================
 macos-option-as-alt = true
-macos-titlebar-style = tabs
+macos-titlebar-style = native
 
 # ===========================
 # RESIZE BEHAVIOR
@@ -70,7 +73,7 @@ resize-overlay-position = center
 # ===========================
 # CLIPBOARD
 # ===========================
-clipboard-read = ask
+clipboard-read = allow
 clipboard-write = allow
 
 # ===========================
@@ -96,4 +99,10 @@ keybind = cmd+zero=reset_font_size
 keybind = cmd+c=copy_to_clipboard
 keybind = cmd+v=paste_from_clipboard
 keybind = ctrl+shift+r=reload_config
-keybind = shift+enter=text:\n
+
+# Split pane management
+keybind = cmd+d=new_split:right
+keybind = cmd+shift+d=new_split:down
+keybind = cmd+left_bracket=goto_split:previous
+keybind = cmd+right_bracket=goto_split:next
+keybind = cmd+shift+enter=toggle_split_zoom

@@ -133,6 +133,15 @@ fi
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' menu select
 
+# FZF-tab completion styling (inherits system-aware fzf color palette)
+zstyle ':fzf-tab:*' fzf-command fzf
+zstyle ':fzf-tab:*' fzf-preview 'eza -la --color=always $realpath 2>/dev/null || ls -la $realpath'
+zstyle ':fzf-tab:*' popup-pad 30 0
+zstyle ':fzf-tab:*' fzf-flags --height=50% --layout=reverse --border --preview-window=right:60%:wrap --color="$FZF_THEME_COLOR"
+zstyle ':fzf-tab:*' switch-group ',' '.'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --level=2 --color=always $realpath'
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'bat --color=always $realpath 2>/dev/null || eza -la --color=always $realpath 2>/dev/null || ls -la $realpath'
+
 # ===========================
 # OTHER TOOLS (DEFERRED)
 # ===========================
@@ -163,10 +172,10 @@ setopt INC_APPEND_HISTORY HIST_EXPIRE_DUPS_FIRST HIST_FIND_NO_DUPS HIST_VERIFY
 if command -v atuin &>/dev/null; then
   # Disable default history search bindings
   bindkey -r '^R'
-  
+
   # Initialize atuin with minimal overhead
   eval "$(atuin init zsh --disable-up-arrow)"
-  
+
   # Custom keybindings for better integration
   bindkey '^R' _atuin_search_widget  # Keep Ctrl+R for atuin search
 fi
@@ -192,5 +201,7 @@ command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
 
 . "$HOME/.local/bin/env"
 
-# Created by `pipx` on 2025-11-01 03:35:06
-export PATH="$PATH:/Users/ab/Library/Python/3.9/bin"
+# AWS CLI autocomplete
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+complete -C '/opt/homebrew/bin/aws_completer' aws

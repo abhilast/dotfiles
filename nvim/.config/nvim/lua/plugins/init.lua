@@ -223,8 +223,21 @@ return {
       "rcarriga/nvim-dap-ui",
     },
     config = function()
-      local path = vim.fn.expand("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
-      require("dap-python").setup(path)
+      -- Try to get pipenv python path
+      local function get_python_path()
+        local handle = io.popen("pipenv --venv 2>/dev/null")
+        if handle then
+          local venv_path = handle:read("*a"):gsub("%s+", "")
+          handle:close()
+          if venv_path ~= "" then
+            return venv_path .. "/bin/python"
+          end
+        end
+        -- Fallback to debugpy from mason
+        return vim.fn.expand("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
+      end
+
+      require("dap-python").setup(get_python_path())
     end,
   },
 
@@ -239,11 +252,25 @@ return {
       "nvim-neotest/neotest-go",
     },
     config = function()
+      -- Get pipenv python path for tests
+      local function get_python_path()
+        local handle = io.popen("pipenv --venv 2>/dev/null")
+        if handle then
+          local venv_path = handle:read("*a"):gsub("%s+", "")
+          handle:close()
+          if venv_path ~= "" then
+            return venv_path .. "/bin/python"
+          end
+        end
+        return "python"
+      end
+
       require("neotest").setup({
         adapters = {
           require("neotest-python")({
             dap = { justMyCode = false },
             runner = "pytest",
+            python = get_python_path(),
           }),
           require("neotest-go")({
             experimental = {
