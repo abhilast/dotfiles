@@ -77,6 +77,19 @@ brew install direnv hyperfine git-delta
 brew install eza tree ncdu neovim powerlevel10k
 ```
 
+## 🐍 Homebrew Python Toolchain
+
+- `.zshenv` now loads `eval "$(/opt/homebrew/bin/brew shellenv)"` early so login shells, `exec zsh`, and `exec zsh -l` prefer Homebrew Python.
+- Quick verification (expected: `/opt/homebrew/bin/python3` first and Python 3.14.x):
+```bash
+# Homebrew Python should win PATH
+which -a python3
+python3 --version
+python3 -c 'import sys; print(sys.executable)'
+```
+- Pipx hygiene (commands only): `brew install pipx`, `pipx ensurepath`, `pipx install pipenv`.
+- Avoid `sudo pip` against `/usr/bin/python3`; legacy `~/Library/Python/3.9` user-site packages came from CLT Python and can be ignored once PATH is Homebrew-first.
+
 ## ⚡ Configuration Options
 
 ### Option 1: Oh My Zsh (Familiar & Stable)
