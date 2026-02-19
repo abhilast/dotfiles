@@ -1,18 +1,27 @@
 [diff]
-    tool = nvimdiff
+    tool = difftastic
     algorithm = histogram
     colorMoved = default
+
+[difftool]
+    prompt = false
+
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+
+[difftool "nvimdiff"]
+    cmd = nvim -d $LOCAL $REMOTE
 
 [merge]
     tool = nvimdiff
     conflictstyle = diff3
 
-[difftool "nvimdiff"]
-    cmd = nvim -d $LOCAL $REMOTE
-
 [mergetool "nvimdiff"]
     cmd = nvim -d $LOCAL $MERGED $REMOTE
     
+[pager]
+    difftool = true
+
 [core]
     # Use delta for better diffs
     pager = delta
