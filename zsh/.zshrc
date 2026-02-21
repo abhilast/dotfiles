@@ -133,6 +133,10 @@ fi
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' menu select
 
+# FZF-tab previews (directory preview for `cd <TAB>`)
+zstyle ':fzf-tab:*' fzf-flags --height=50% --layout=reverse --border --preview-window=right:60%:wrap
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --level=2 --color=always $realpath 2>/dev/null || lsd -la --color=always $realpath 2>/dev/null || ls -la $realpath'
+
 # ===========================
 # OTHER TOOLS (DEFERRED)
 # ===========================
