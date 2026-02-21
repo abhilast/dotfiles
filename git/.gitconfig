@@ -1,14 +1,20 @@
 [user]
 email = 246795909+abhilast@users.noreply.github.com
 name = abhilast
-
-[credential]
-helper =
-helper = /usr/local/share/gcm-core/git-credential-manager
-
 [pull]
 rebase = true
 
 [include]
 path = ~/.gitconfig.d/aliases
 path = ~/.gitconfig.d/tools
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
+[diff]
+	mnemonicPrefix = true
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true

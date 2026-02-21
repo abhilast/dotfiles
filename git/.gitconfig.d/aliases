@@ -19,6 +19,8 @@
     # Diff shortcuts
     d = diff
     dc = diff --cached
+    dt = difftool
+    dtc = difftool --cached
     
     # Branch management
     brd = branch -d

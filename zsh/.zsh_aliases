@@ -94,6 +94,12 @@ alias bu="brew update && brew upgrade"
 alias bs="brew search"
 
 # ===========================
+# 🐍 PYTHON TOOLING
+# ===========================
+alias python="python3"
+alias pip="pip3"
+
+# ===========================
 # ☸️  KUBERNETES ALIASES
 # ===========================
 alias kctx="kubectx"
