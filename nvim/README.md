@@ -25,6 +25,18 @@ stow nvim
 nvim
 ```
 
+## ⚙️ Maintenance Quick Reference
+
+```vim
+:Lazy sync      " install/update plugins
+:Mason          " open Mason UI
+:MasonUpdate    " refresh Mason registry metadata
+```
+
+In Mason UI:
+- Press `U` to update all outdated packages.
+- Press `i` on a selected package to reinstall/update only that package.
+
 ## 📦 Dependencies
 
 Required tools:
@@ -43,6 +55,8 @@ brew install fd ripgrep glow node python
 
 ## ⌨️ Core Shortcuts
 
+Leader key in this config is **Space** (`<leader>` = `Space`).
+
 ### Essential Navigation
 
 | Shortcut           | Action                  |
@@ -58,6 +72,37 @@ brew install fd ripgrep glow node python
 | -------- | -------------------- |
 | `;`      | Command mode         |
 | `jk`     | Escape (Insert mode) |
+
+## 🧠 Forget-Proof Quick Sheet
+
+If you only remember one section, use this one.
+
+| Task | Keys / Command |
+| ---- | -------------- |
+| Find files fast | `<C-p>` |
+| Grep text in project | `<C-f>` |
+| Switch recent buffers | `<leader><leader>` |
+| Open file tree | `<leader>e` |
+| Git status/files picker | `<leader>gs`, `<leader>gf` |
+| Open Diffview | `<leader>gd` |
+| LSP rename/code action | `<leader>rn`, `<leader>ca` |
+| Open diagnostics list (Trouble) | `<leader>xx` |
+| Open Mason UI | `<leader>lm` or `:Mason` |
+| Update Mason registry | `<leader>lu` or `:MasonUpdate` |
+| Update all Mason packages | `:Mason` then press `U` |
+| Restart LSP | `<leader>lr` |
+
+When unsure about a mapping:
+
+```vim
+:Telescope keymaps
+```
+
+or use this binding:
+
+```text
+<leader>fk
+```
 
 ## 📁 File Navigation & Search
 
@@ -296,6 +341,17 @@ brew install fd ripgrep glow node python
 | `]d`        | Next diagnostic     |
 | `<leader>D` | Show diagnostic     |
 
+### Trouble (Structured Diagnostics/Lists)
+
+| Shortcut     | Action |
+| ------------ | ------ |
+| `<leader>xx` | Diagnostics (all) |
+| `<leader>xX` | Diagnostics (current buffer) |
+| `<leader>cs` | Symbols |
+| `<leader>cl` | LSP locations panel |
+| `<leader>xL` | Location list |
+| `<leader>xQ` | Quickfix list |
+
 ### Search Navigation (Centered)
 
 | Shortcut | Action                          |
@@ -379,7 +435,8 @@ brew install fd ripgrep glow node python
 | `<leader>gt` | Go test         |
 | `<leader>gi` | Go install deps |
 
-> Use `:GoBuild` and `:GoFmt` (or command palette) for build/format actions—`<leader>gb` and `<leader>gf` are mapped to Git pickers.
+> Use `:GoBuild` and `:GoFmt` for build/format actions.  
+> Note: `<leader>gb` and `<leader>gf` are currently mapped to Git pickers in this config.
 
 ### Python Development
 
@@ -387,7 +444,8 @@ brew install fd ripgrep glow node python
 | ------------ | ---------- |
 | `<leader>pt` | Run pytest |
 
-> Run the current buffer with `:!python %` when needed—`<leader>pr` is reserved for recent project files.
+> Run the current buffer with `:!python %` when needed.  
+> Note: `<leader>pr` is currently mapped to "recent project files".
 
 ### YAML Support
 
@@ -466,6 +524,14 @@ Install via Mason (`:Mason`):
 :MasonInstall bashls        # Bash
 ```
 
+Recommended maintenance flow:
+
+```vim
+:MasonUpdate
+:Mason
+" then press U in the Mason window
+```
+
 ## Tips
 
 - Use `<C-p>` and `<C-f>` for fast navigation
@@ -473,3 +539,22 @@ Install via Mason (`:Mason`):
 - Use `<leader>w3` for 3-column layout
 - Centered navigation (`n`, `N`, `*`, `#`) keeps context visible
 - LSP features work automatically when language servers are installed
+
+## Troubleshooting Quick Fixes
+
+```vim
+" Plugin/mapping feels missing
+:Lazy sync
+
+" LSP feels stale
+:LspRestart
+
+" Mason index is stale
+:MasonUpdate
+
+" See active LSP clients
+:LspInfo
+
+" Check keybindings interactively
+:Telescope keymaps
+```
