@@ -239,3 +239,4 @@ $RECYCLE.BIN/
 # AI stuff
 # ===========================
 .gemini-clipboard
+.claude/
