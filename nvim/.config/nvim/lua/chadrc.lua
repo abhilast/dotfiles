@@ -4,7 +4,7 @@ local M = {}
 
 -- 1) Base theme and highlights
 M.base46 = {
-  theme = "ayu_light",
+  theme = "github_light",
   -- hl_override = {
   --   Comment     = { italic = true },
   --   ["@comment"] = { italic = true },
@@ -54,10 +54,9 @@ M.plugins = {
     event    = "VimEnter",
     config   = function() require("configs.lualine") end,
   },
-    -- 5) Indent guides
+  -- 5) Indent guides (disabled)
   ["lukas-reineke/indent-blankline.nvim"] = {
-    event  = "BufReadPre",
-    config = function() require("configs.indent-blankline") end,
+    enabled = false,
   },
 }
 
