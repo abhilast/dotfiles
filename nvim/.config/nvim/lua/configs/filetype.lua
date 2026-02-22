@@ -24,6 +24,9 @@ vim.filetype.add({
     ["kustomization.yml"] = "yaml.kubernetes",
   },
   pattern = {
+    -- Treat .env files as dotenv, not sh — prevents bashls/shellcheck from attaching
+    ["%.env$"] = "dotenv",
+    ["%.env%.%a+$"] = "dotenv",
     [".*%.tf%.j2"] = "terraform",
     [".*%.yaml%.j2"] = "yaml.ansible",
     [".*%.yml%.j2"] = "yaml.ansible",
