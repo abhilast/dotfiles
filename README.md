@@ -100,3 +100,23 @@ git push
 - See component READMEs for detailed configuration options
 - Backup configs with `./scripts/backup-configs.sh` before major changes
 
+
+## 🌳 Git Worktrees Helper (`wt`)
+
+A small helper script is available at `~/dotfiles/scripts/wt` (and on `PATH` after shell reload).
+
+```bash
+wt new cloudsync-pro hero-fix
+wt ls cloudsync-pro
+wt rm cloudsync-pro hero-fix
+wt prune cloudsync-pro
+```
+
+Defaults:
+- Root workspace: `~/repos/skates`
+- New worktree path: `~/repos/skates/<repo>-wt-<name>`
+- Base branch: `origin/main`
+
+Overrides:
+- `WT_ROOT` to change workspace root
+- `WT_REMOTE_BASE` to change default branch base

@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="${WT_ROOT:-$HOME/repos/skates}"
+REMOTE_BASE="${WT_REMOTE_BASE:-origin/main}"
+
+usage() {
+  cat <<USAGE
+Usage:
+  wt new <repo> <name> [--base <remote-branch>] [--branch <branch-name>]
+  wt ls <repo>
+  wt rm <repo> <name>
+  wt prune <repo>
+  wt path <repo> <name>
+  wt help
+
+Conventions:
+  hub repo path:   \$ROOT_DIR/<repo>
+  worktree path:   \$ROOT_DIR/<repo>-wt-<name>
+  default base:    $REMOTE_BASE
+
+Examples:
+  wt new cloudsync-pro hero-fix
+  wt new cloudsync-pro issue-123 --base origin/main --branch fix/hero-copy
+  wt ls cloudsync-pro
+  wt rm cloudsync-pro hero-fix
+  wt prune cloudsync-pro
+USAGE
+}
+
+die() {
+  printf 'wt: %s\n' "$*" >&2
+  exit 1
+}
+
+require_repo() {
+  local repo="$1"
+  local hub="$ROOT_DIR/$repo"
+  [[ -d "$hub" ]] || die "repo not found: $hub"
+  git -C "$hub" rev-parse --is-inside-work-tree >/dev/null 2>&1 || die "not a git repo: $hub"
+}
+
+worktree_path() {
+  local repo="$1"
+  local name="$2"
+  printf '%s/%s-wt-%s\n' "$ROOT_DIR" "$repo" "$name"
+}
+
+new_cmd() {
+  local repo="${1:-}"
+  local name="${2:-}"
+  shift 2 || true
+
+  [[ -n "$repo" && -n "$name" ]] || die "new requires: <repo> <name>"
+  require_repo "$repo"
+
+  local base="$REMOTE_BASE"
+  local branch="$name"
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --base)
+        [[ $# -ge 2 ]] || die "--base requires a value"
+        base="$2"
+        shift 2
+        ;;
+      --branch)
+        [[ $# -ge 2 ]] || die "--branch requires a value"
+        branch="$2"
+        shift 2
+        ;;
+      *)
+        die "unknown option: $1"
+        ;;
+    esac
+  done
+
+  local hub="$ROOT_DIR/$repo"
+  local wt_path
+  wt_path="$(worktree_path "$repo" "$name")"
+
+  [[ ! -e "$wt_path" ]] || die "worktree path already exists: $wt_path"
+
+  git -C "$hub" fetch --all --prune
+  git -C "$hub" worktree add "$wt_path" -b "$branch" "$base"
+
+  printf 'created: %s\n' "$wt_path"
+  printf 'branch:  %s\n' "$branch"
+}
+
+ls_cmd() {
+  local repo="${1:-}"
+  [[ -n "$repo" ]] || die "ls requires: <repo>"
+  require_repo "$repo"
+  git -C "$ROOT_DIR/$repo" worktree list
+}
+
+rm_cmd() {
+  local repo="${1:-}"
+  local name="${2:-}"
+  [[ -n "$repo" && -n "$name" ]] || die "rm requires: <repo> <name>"
+  require_repo "$repo"
+
+  local hub="$ROOT_DIR/$repo"
+  local wt_path
+  wt_path="$(worktree_path "$repo" "$name")"
+
+  [[ -d "$wt_path" ]] || die "worktree path not found: $wt_path"
+
+  git -C "$hub" worktree remove "$wt_path"
+  printf 'removed: %s\n' "$wt_path"
+}
+
+prune_cmd() {
+  local repo="${1:-}"
+  [[ -n "$repo" ]] || die "prune requires: <repo>"
+  require_repo "$repo"
+  git -C "$ROOT_DIR/$repo" worktree prune
+  printf 'pruned: %s\n' "$ROOT_DIR/$repo"
+}
+
+path_cmd() {
+  local repo="${1:-}"
+  local name="${2:-}"
+  [[ -n "$repo" && -n "$name" ]] || die "path requires: <repo> <name>"
+  printf '%s\n' "$(worktree_path "$repo" "$name")"
+}
+
+main() {
+  local cmd="${1:-help}"
+  shift || true
+
+  case "$cmd" in
+    new) new_cmd "$@" ;;
+    ls) ls_cmd "$@" ;;
+    rm) rm_cmd "$@" ;;
+    prune) prune_cmd "$@" ;;
+    path) path_cmd "$@" ;;
+    help|-h|--help) usage ;;
+    *) die "unknown command: $cmd (run: wt help)" ;;
+  esac
+}
+
+main "$@"
