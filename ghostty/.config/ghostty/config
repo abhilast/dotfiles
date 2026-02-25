@@ -11,7 +11,6 @@
 #theme = Catppuccin Latte
 theme = light:Builtin Light,dark:Nord
 #background-opacity = 0.95
-
 # ===========================
 # FONT CONFIGURATION
 # ===========================
@@ -39,8 +38,8 @@ window-save-state = always
 window-padding-x = 6
 window-padding-y = 4
 window-padding-balance = true
-split-divider-color = #88c0d0
-# split-divider-color = #ff2020  # neon red
+#split-divider-color = #88c0d0
+split-divider-color = #ff2020
 
 # ===========================
 # PERFORMANCE SETTINGS
@@ -52,13 +51,15 @@ shell-integration = zsh
 # ===========================
 # SCROLLBACK
 # ===========================
-scrollback-limit = 100000
+scrollback-limit = 50000
 
 # ===========================
 # MOUSE & INTERACTION
 # ===========================
 mouse-hide-while-typing = true
-copy-on-select = true
+# On macOS, `true` can prefer selection clipboard behavior.
+# `clipboard` copies selected text to the system clipboard (Cmd+V) as well.
+copy-on-select = clipboard
 link-url = true
 clipboard-trim-trailing-spaces = true
 
