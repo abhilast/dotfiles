@@ -169,3 +169,19 @@ Interactive audio source switcher.
 - Use `backup-configs.sh` before major changes
 - Run `benchmark.sh` to verify performance improvements
 - Use `migrate-to-zinit.sh` to test performance differences
+
+## 🌳 Git Workflow
+
+### wt
+Git worktree helper for a repo hub + branch worktree workflow.
+
+```bash
+./scripts/wt new cloudsync-pro hero-fix
+./scripts/wt ls cloudsync-pro
+./scripts/wt rm cloudsync-pro hero-fix
+./scripts/wt prune cloudsync-pro
+```
+
+Defaults:
+- `WT_ROOT=~/repos/skates`
+- `WT_REMOTE_BASE=origin/main`

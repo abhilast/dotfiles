@@ -52,7 +52,7 @@ o.relativenumber = true
 -- Better visual experience
 o.termguicolors = true
 o.signcolumn = "yes"
-o.colorcolumn = "80,120"
+o.colorcolumn = ""
 o.wrap = true
 o.linebreak = true
 

@@ -114,6 +114,9 @@ export FZF_CTRL_R_OPTS="--preview \"echo {}\" --preview-window down:3:hidden:wra
 # PERFORMANCE: Export the constructed PATH
 export PATH
 
+# Dotfiles helper scripts
+[[ -d "$HOME/dotfiles/scripts" ]] && PATH="$PATH:$HOME/dotfiles/scripts"
+
 # Claude Token limit
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
 
