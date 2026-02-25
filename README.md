@@ -39,6 +39,20 @@ The installer handles:
 - GNU Stow symlink creation
 - Path fixes for your environment
 
+## 🤖 AI Workflow Quick Reference
+
+Core shell helpers (from `zsh/.zsh_aliases` and `zsh/.zsh_functions`):
+
+```bash
+pj              # fuzzy-switch projects
+wtn <branch>    # create/switch to a git worktree branch
+wtl             # list/jump worktrees
+wtr <target>    # remove a worktree (safe checks)
+prn             # push current branch + open PR via gh
+cc [dir] [...]  # launch Claude (optional directory)
+cx [dir] [...]  # launch Codex (optional directory)
+```
+
 ## 📚 Component Documentation
 
 ### Core Components

@@ -372,6 +372,224 @@ gitst() {
 }
 
 # ===========================
+# 🌳 GIT WORKTREE HELPERS
+# ===========================
+
+# Create/switch to a task worktree
+# Usage: wtnew <branch-name> [base-ref]
+wtnew() {
+  local branch="${1:-}"
+  local base_ref="${2:-HEAD}"
+  local root repo safe_branch worktree_home worktree_dir
+
+  if [[ -z "$branch" ]]; then
+    echo "Usage: wtnew <branch-name> [base-ref]"
+    return 1
+  fi
+
+  if ! git rev-parse --git-dir >/dev/null 2>&1; then
+    echo "❌ Not a Git repository"
+    return 1
+  fi
+
+  root=$(git rev-parse --show-toplevel) || return 1
+  repo=$(basename "$root")
+  safe_branch="${branch//\//-}"
+  worktree_home="${HOME}/.worktrees/${repo}"
+  worktree_dir="${worktree_home}/${safe_branch}"
+
+  mkdir -p "$worktree_home" || return 1
+
+  if [[ -d "$worktree_dir" ]]; then
+    echo "❌ Worktree path already exists: $worktree_dir"
+    return 1
+  fi
+
+  if git show-ref --verify --quiet "refs/heads/${branch}"; then
+    git worktree add "$worktree_dir" "$branch" || return 1
+  else
+    git worktree add -b "$branch" "$worktree_dir" "$base_ref" || return 1
+  fi
+
+  echo "✅ Worktree ready: $worktree_dir"
+  cd "$worktree_dir" || return 1
+}
+
+# List worktrees, with interactive jump when fzf is installed
+wtls() {
+  local root selected target
+
+  if ! git rev-parse --git-dir >/dev/null 2>&1; then
+    echo "❌ Not a Git repository"
+    return 1
+  fi
+
+  root=$(git rev-parse --show-toplevel) || return 1
+
+  if command -v fzf >/dev/null 2>&1; then
+    selected=$(git -C "$root" worktree list --porcelain | \
+      awk '
+        /^worktree / { p=$2 }
+        /^branch / { b=$2; sub(/^refs\/heads\//, "", b); print b "\t" p }
+        /^detached/ { print "(detached)\t" p }
+      ' | \
+      fzf --delimiter='\t' --with-nth=1,2 --preview 'ls -la {2}' --preview-window=right:60%)
+
+    [[ -z "$selected" ]] && return 0
+    target=$(printf '%s' "$selected" | cut -f2)
+    cd "$target" || return 1
+  else
+    git -C "$root" worktree list
+  fi
+}
+
+# Remove a worktree by branch name or path
+# Usage: wtrm [-f|--force] <branch-or-path>
+wtrm() {
+  local force_flag=""
+  local query="${1:-}"
+  local root current_path target selected
+
+  if [[ "$query" == "-f" || "$query" == "--force" ]]; then
+    force_flag="--force"
+    shift
+    query="${1:-}"
+  fi
+
+  if ! git rev-parse --git-dir >/dev/null 2>&1; then
+    echo "❌ Not a Git repository"
+    return 1
+  fi
+
+  root=$(git rev-parse --show-toplevel) || return 1
+  current_path=$(pwd)
+
+  if [[ -z "$query" ]]; then
+    if command -v fzf >/dev/null 2>&1; then
+      selected=$(git -C "$root" worktree list --porcelain | \
+        awk '
+          /^worktree / { p=$2 }
+          /^branch / { b=$2; sub(/^refs\/heads\//, "", b); print b "\t" p }
+          /^detached/ { print "(detached)\t" p }
+        ' | \
+        fzf --delimiter='\t' --with-nth=1,2 --preview 'ls -la {2}' --preview-window=right:60%)
+      [[ -z "$selected" ]] && return 0
+      target=$(printf '%s' "$selected" | cut -f2)
+    else
+      echo "Usage: wtrm [-f|--force] <branch-or-path>"
+      return 1
+    fi
+  elif [[ -d "$query" ]]; then
+    target="$query"
+  else
+    target=$(git -C "$root" worktree list --porcelain | \
+      awk -v q="$query" '
+        /^worktree / { p=$2 }
+        /^branch / { b=$2; sub(/^refs\/heads\//, "", b); if (b == q) print p }
+      ' | head -n1)
+    [[ -z "$target" ]] && target="$query"
+  fi
+
+  if [[ "$target" == "$current_path" ]]; then
+    echo "❌ Refusing to remove current working tree: $target"
+    echo "   cd to a different worktree first."
+    return 1
+  fi
+
+  git -C "$root" worktree remove $force_flag "$target" || return 1
+  git -C "$root" worktree prune
+  echo "✅ Removed worktree: $target"
+}
+
+# Create PR for current branch with sensible defaults
+# Usage: prnow [base-branch]
+prnow() {
+  local base="${1:-}"
+  local branch remote has_remote
+
+  if ! git rev-parse --git-dir >/dev/null 2>&1; then
+    echo "❌ Not a Git repository"
+    return 1
+  fi
+
+  if ! command -v gh >/dev/null 2>&1; then
+    echo "❌ GitHub CLI (gh) is not installed"
+    return 1
+  fi
+
+  branch=$(git rev-parse --abbrev-ref HEAD)
+  if [[ "$branch" == "HEAD" ]]; then
+    echo "❌ Detached HEAD. Checkout a branch first."
+    return 1
+  fi
+
+  if [[ "$branch" == "master" || "$branch" == "main" ]]; then
+    echo "❌ Refusing to open PR from $branch. Use a feature branch."
+    return 1
+  fi
+
+  remote="$(git config --get branch.${branch}.remote)"
+  has_remote=1
+  [[ -z "$remote" ]] && has_remote=0
+
+  if [[ "$has_remote" -eq 0 ]]; then
+    git push -u origin "$branch" || return 1
+  else
+    git push || return 1
+  fi
+
+  if [[ -n "$base" ]]; then
+    gh pr create --base "$base" --fill
+  else
+    gh pr create --fill
+  fi
+}
+
+# Launch Claude Code with optional working directory
+# Usage: cc [directory] [-- <args passed to claude>]
+cc() {
+  local target_dir=""
+
+  if ! command -v claude >/dev/null 2>&1; then
+    echo "❌ 'claude' command not found in PATH"
+    return 1
+  fi
+
+  if [[ -n "${1:-}" && -d "$1" ]]; then
+    target_dir="$1"
+    shift
+  fi
+
+  if [[ -n "$target_dir" ]]; then
+    (cd "$target_dir" && command claude "$@")
+  else
+    command claude "$@"
+  fi
+}
+
+# Launch Codex with optional working directory
+# Usage: cx [directory] [-- <args passed to codex>]
+cx() {
+  local target_dir=""
+
+  if ! command -v codex >/dev/null 2>&1; then
+    echo "❌ 'codex' command not found in PATH"
+    return 1
+  fi
+
+  if [[ -n "${1:-}" && -d "$1" ]]; then
+    target_dir="$1"
+    shift
+  fi
+
+  if [[ -n "$target_dir" ]]; then
+    (cd "$target_dir" && command codex "$@")
+  else
+    command codex "$@"
+  fi
+}
+
+# ===========================
 # 🚀 PERFORMANCE UTILITIES
 # ===========================
 
