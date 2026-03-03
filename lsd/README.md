@@ -1,71 +1,39 @@
-# 📁 LSD Configuration
+# LSD Configuration
 
 ## Overview
-[LSD (LSDeluxe)](https://github.com/lsd-rs/lsd) is a modern replacement for the `ls` command with colors, icons, tree-view, and more. It's like `ls` on steroids.
+LSD is configured via:
+- `lsd/.config/lsd/config.yaml`
 
-## Features
-- File icons and colors
-- Tree view support
-- Git integration
-- File permissions in human-readable format
-- Sorting by size, time, extension
-- Symlink visualization
-
-## Installation
+## Install
 ```bash
-# Install lsd
-brew install lsd
-
-# Symlink configuration (handled by stow)
 cd ~/dotfiles
 stow lsd
 ```
 
-## Configuration Location
-Configuration file: `~/.config/lsd/config.yaml`
+## Alias Behavior In This Repo
+Your shell keeps native `ls` and adds separate LSD aliases:
+- `lls='lsd'`
+- `lll='lsd -l'`
+- `lla='lsd -la'`
+- `llt='lsd --tree'`
+
+Defined in `zsh/.zsh_aliases`.
 
 ## Common Usage
 ```bash
-lsd             # Basic listing
-lsd -l          # Long format with details
-lsd -la         # Include hidden files
-lsd -lh         # Human-readable sizes
-lsd -lt         # Sort by modification time
-lsd -lS         # Sort by size
-lsd --tree      # Tree view
-lsd --tree -d 2 # Tree view, max depth 2
+lsd
+lsd -l
+lsd -la
+lsd --tree
+lsd --tree -d 2
 ```
 
-## Aliases (add to shell config)
-```bash
-alias ls='lsd'
-alias l='lsd -l'
-alias la='lsd -la'
-alias lt='lsd --tree'
-alias ll='lsd -lah'
-```
-
-## Configuration Options
-Common settings in `config.yaml`:
-```yaml
-icons:
-  when: auto
-  theme: fancy
-date: relative
-size: short
-permission: octal
-sorting:
-  dir-grouping: first
-```
-
-## Features Over Standard ls
-- **Icons** - Visual file type indicators
-- **Colors** - Syntax highlighting for permissions
-- **Git status** - Shows git modifications inline
-- **Header** - Column headers in long format
-- **Tree** - Built-in tree view without `tree` command
-
-## Tips
-- Use `--config-file` to test different configurations
-- Combine with `bat` for complete modern CLI experience
-- Use `--blocks` to customize output columns
+## Config Highlights
+Current `config.yaml` includes:
+- `classic: false`
+- `icons.when: auto`
+- `icons.theme: fancy`
+- `date: date`
+- `sorting.column: name`
+- `sorting.dir-grouping: none`
+- ignore globs for `.git`, `node_modules`, `.DS_Store`

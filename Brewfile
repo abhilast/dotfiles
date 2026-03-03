@@ -1,9 +1,4 @@
 # ===========================
-# TAPS FOR SPECIALIZED TOOLS
-# ===========================
-tap "kyoh86/tap"  # For richgo (enhanced go test output)
-
-# ===========================
 # SHELL ENVIRONMENT TOOLS
 # ===========================
 brew "direnv"                 # Auto-load project-specific environment variables
@@ -49,8 +44,25 @@ brew "powerlevel10k"   # ZSH theme
 # ===========================
 # LANGUAGE-SPECIFIC TOOLS
 # ===========================
-brew "kyoh86/tap/richgo"  # Enhanced go test output (aliased as 'go')
 brew "bun"                    # JavaScript runtime and toolkit
+brew "dotnet"                 # .NET SDK (needed to install csharp-ls via dotnet tool)
+
+# ===========================
+# LSP SERVERS (Claude Code / LSP plugins)
+# ===========================
+brew "llvm"                        # clangd (C/C++)
+brew "gopls"                       # gopls (Go)
+brew "jdtls"                       # jdtls (Java)
+brew "kotlin-language-server"      # kotlin-language-server (Kotlin)
+brew "lua-language-server"         # lua-language-server (Lua)
+brew "pyright"                     # pyright-langserver (Python)
+brew "rust-analyzer"               # rust-analyzer (Rust)
+brew "swift"                       # sourcekit-lsp (Swift)
+brew "typescript-language-server"  # typescript-language-server (TypeScript)
+# NOTE: csharp-ls is not currently available as a Homebrew formula; install with:
+# dotnet tool install --global csharp-ls
+# NOTE: intelephense is not currently available as a Homebrew formula; install with:
+# npm i -g intelephense
 
 # ===========================
 # BENCHMARKING & UTILITIES
