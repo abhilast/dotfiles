@@ -49,6 +49,7 @@ brew "powerlevel10k"   # ZSH theme
 # LANGUAGE-SPECIFIC TOOLS
 # ===========================
 brew "kyoh86/tap/richgo"  # Enhanced go test output (aliased as 'go')
+brew "bun"                    # JavaScript runtime and toolkit
 
 # ===========================
 # BENCHMARKING & UTILITIES

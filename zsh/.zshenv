@@ -117,6 +117,9 @@ export PATH
 # Dotfiles helper scripts
 [[ -d "$HOME/dotfiles/scripts" ]] && PATH="$PATH:$HOME/dotfiles/scripts"
 
+# Bun
+PATH="$PATH:$HOME/.bun/bin"
+
 # Claude Token limit
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
 
