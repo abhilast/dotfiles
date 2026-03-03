@@ -1,63 +1,24 @@
-# 🔧 Go Configuration
+# Go Configuration
 
 ## Overview
-Go development environment configuration including linter settings, environment variables, and tool configurations.
+This package currently tracks Revive lint rules only:
+- `go/revive/.revive.toml`
 
-## Features
-- Revive linter configuration for code quality
-- GOPATH and module settings
-- Development tool configurations
-
-## Installation
+## Install
 ```bash
-# Install Go
-brew install go
-
-# Install development tools
-go install github.com/mgechev/revive@latest
-go install golang.org/x/tools/gopls@latest
-go install github.com/go-delve/delve/cmd/dlv@latest
-
-# Symlink configuration (handled by stow)
 cd ~/dotfiles
 stow go
 ```
 
-## Directory Structure
-- `revive/` - Revive linter configuration
+## Tooling Notes
+- This repo's `Brewfile` does **not** currently declare `brew "go"`.
+- `zsh/.zsh_aliases` wraps `go test` through `richgo` when available.
+- `zsh/.zshenv` sets `GOPATH` dynamically using `go env GOPATH` when `go` exists on PATH.
 
-## Environment Variables
-Typically set in shell configuration:
+## Revive
+Run revive in a Go project:
 ```bash
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-export GO111MODULE=on
+revive -config "$HOME/go/revive/.revive.toml" ./...
 ```
 
-## Revive Linter
-Custom rules for Go code quality:
-- Enforces naming conventions
-- Checks for unused code
-- Ensures proper error handling
-- Validates comments and documentation
-
-## Common Commands
-```bash
-go mod init     # Initialize new module
-go mod tidy     # Clean up dependencies
-go test ./...   # Run all tests
-go build        # Build current package
-go run .        # Run current package
-revive ./...    # Run linter
-```
-
-## Tools Ecosystem
-- **gopls** - Language server for IDE support
-- **delve** - Debugger
-- **revive** - Linter (faster than golint)
-- **gofumpt** - Stricter formatter than gofmt
-
-## Tips
-- Use `go mod vendor` for offline builds
-- Run `go mod download` to pre-cache dependencies
-- Use `go test -cover` for coverage reports
+If your symlink target is different, point `-config` to the stowed path in your home directory.

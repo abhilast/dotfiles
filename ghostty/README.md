@@ -1,38 +1,27 @@
 # Ghostty Configuration
 
-Practical Ghostty setup focused on readability and fast interaction for coding.
-
-## Files
-
-- `ghostty/.config/ghostty/config` - main configuration
-- `ghostty/.config/ghostty/profiles.conf` - profile ideas/templates
-- `ghostty/.config/ghostty/themes.conf` - theme notes
-- `ghostty/.config/ghostty/shaders/` - custom shader files
+## Overview
+Ghostty config is tracked in:
+- `ghostty/.config/ghostty/config`
+- `ghostty/.config/ghostty/profiles.conf`
+- `ghostty/.config/ghostty/themes.conf`
+- `ghostty/.config/ghostty/shaders/`
 
 ## Install
-
 ```bash
 cd ~/dotfiles
 stow ghostty
 ```
 
-Config is then available at `~/.config/ghostty/config`.
-
-## Current Defaults (Important)
-
+## Current Defaults
+From `config`:
 - Theme: `light:Builtin Light,dark:Nord`
-- Readability tweaks:
-  - custom cyan palette overrides for better contrast on light mode
-  - larger cell height/width adjustments
-- Clipboard behavior:
-  - `copy-on-select = clipboard` for predictable `Cmd+V` paste behavior on macOS
-- Scrollback:
-  - `scrollback-limit = 50000` (balanced history/perf)
-- Shader:
-  - custom cursor shader enabled
+- Scrollback: `scrollback-limit = 50000`
+- Clipboard: `copy-on-select = clipboard`
+- Shader: `custom-shader = shaders/cursor_warp.glsl`
+- Font: `JetBrainsMono Nerd Font Mono`, size `15`
 
-## Keybinds Used
-
+## Keybinds In Config
 - `Cmd+T` new tab
 - `Cmd+W` close surface
 - `Cmd+N` new window
@@ -42,17 +31,11 @@ Config is then available at `~/.config/ghostty/config`.
 - `Cmd+V` paste
 - `Ctrl+Shift+R` reload config
 
-## Readability Notes
+## Optional Theme Helpers
+Shell functions/aliases in zsh also expose:
+- `ghostty-theme`
+- `ghostty-auto-theme`
+- `ghostty-sync-system`
+- `gt`, `gta`, `gts`
 
-If highlighted text looks low-contrast in light theme, tune ANSI cyan:
-
-```conf
-palette = 6=#006d77
-palette = 14=#008b99
-```
-
-## Performance Notes
-
-- Keep shader enabled if you prefer it visually.
-- Main lightweight lever is scrollback size; reduce below `50000` if needed.
-- Reload config quickly with `Ctrl+Shift+R` after edits.
+These helpers edit `~/.config/ghostty/config`.
