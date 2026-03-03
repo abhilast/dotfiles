@@ -34,6 +34,7 @@ brew "docker"          # Containerization (has aliases and functions)
 brew "kubernetes-cli"  # Kubectl (lazy loaded in zshrc)
 brew "lazygit"         # Git TUI
 brew "git-delta"       # Better git diffs (configured in .gitconfig.d/tools)
+brew "difftastic"      # Syntax-aware structural diffs (used by git difftool and lazygit)
 brew "gh"              # GitHub CLI
 # ===========================
 # SYSTEM MONITORING

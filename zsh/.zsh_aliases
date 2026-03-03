@@ -172,7 +172,8 @@ alias gts='ghostty-sync-system'              # Sync with system theme
 alias gtl='~/dotfiles/scripts/ghostty-theme-switcher.sh --list'  # List themes
 
 # PERFORMANCE: Ghostty profile management
-alias gp='ghostty-profile'                  # Switch profiles
+# Keep `gp` reserved for `git push` below.
+alias gprofile='ghostty-profile'            # Switch profiles
 alias gpc='ghostty-profile coding'          # Coding profile
 alias gpp='ghostty-profile presentation'    # Presentation profile
 alias gpm='ghostty-profile minimal'         # Minimal profile
@@ -231,6 +232,18 @@ alias hsync='atuin sync'                    # Manual sync
 alias hclean='atuin history clean'          # Clean up history
 
 alias in='_init_node'
+
+# ===========================
+# 🤖 AI/CODE WORKFLOW SHORTCUTS
+# ===========================
+# Thin aliases for existing helper functions
+alias pj='project'    # Fuzzy project switcher
+alias gcm='gcommit'   # Guided conventional commit
+alias gho='ghopen'    # Open current repo on GitHub
+alias wtn='wtnew'     # Create/switch git worktree
+alias wtl='wtls'      # List/jump git worktrees
+alias wtr='wtrm'      # Remove git worktree
+alias prn='prnow'     # Push current branch and open PR
 
 # ===========================
 # 🐙 GIT & KUBECTL ALIASES

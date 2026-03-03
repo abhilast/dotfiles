@@ -543,8 +543,19 @@ fzb             # Browse git branches
 | `gta` | `ghostty-auto-theme` | Auto theme by time |
 | `gts` | `ghostty-sync-system` | Sync with system |
 | `gtl` | List themes | List available themes |
-| `gp` | `ghostty-profile` | Switch profiles |
+| `gprofile` | `ghostty-profile` | Switch profiles |
 | `gconf` | Edit config | Edit Ghostty config |
+
+### 🤖 AI/PR Workflow
+| Alias | Command | Description |
+|-------|---------|-------------|
+| `pj` | `project` | Fuzzy project switcher |
+| `wtn` | `wtnew` | Create and switch to worktree |
+| `wtl` | `wtls` | List and jump between worktrees |
+| `wtr` | `wtrm` | Remove worktree safely |
+| `prn` | `prnow` | Push branch and open PR |
+| `gcm` | `gcommit` | Guided conventional commit |
+| `gho` | `ghopen` | Open current repo on GitHub |
 
 ## 🛠️ Functions Reference
 
@@ -699,6 +710,49 @@ ghopen              # Open GitHub repo in browser
 Enhanced git status with better formatting.
 ```bash
 gitst               # Show git status with icons
+```
+
+#### `wtnew <branch-name> [base-ref]`
+Create/switch to a dedicated git worktree for isolated tasks.
+```bash
+wtnew feat/lsp-fix          # creates a new worktree + branch
+wtnew bugfix/foo origin/master
+```
+
+#### `wtls`
+List worktrees (interactive picker when `fzf` is installed).
+```bash
+wtls
+```
+
+#### `wtrm [-f] <branch-or-path>`
+Remove a worktree safely (refuses current directory).
+```bash
+wtrm feat/lsp-fix
+wtrm -f ~/.worktrees/dotfiles/feat-lsp-fix
+```
+
+#### `prnow [base-branch]`
+Push current branch and open GitHub PR with defaults.
+```bash
+prnow
+prnow master
+```
+
+#### `cc [directory] [-- <args>]`
+Launch Claude from current or target directory.
+```bash
+cc
+cc ~/dotfiles
+cc ~/dotfiles -- --help
+```
+
+#### `cx [directory] [-- <args>]`
+Launch Codex from current or target directory.
+```bash
+cx
+cx ~/dotfiles
+cx ~/dotfiles -- --help
 ```
 
 ### 👻 Ghostty Functions

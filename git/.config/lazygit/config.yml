@@ -1,0 +1,5 @@
+git:
+  pagers:
+    - command: difft --color=always
+      pager: delta --paging=never
+      useConfig: false
