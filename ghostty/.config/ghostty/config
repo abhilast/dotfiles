@@ -39,7 +39,7 @@ window-padding-x = 6
 window-padding-y = 4
 window-padding-balance = true
 #split-divider-color = #88c0d0
-split-divider-color = #ff2020
+split-divider-color = #ff8800
 
 # ===========================
 # PERFORMANCE SETTINGS
@@ -85,8 +85,8 @@ clipboard-write = allow
 # ===========================
 # SHADERS
 # ===========================
-custom-shader-animation = always
-custom-shader = shaders/cursor_warp.glsl
+#custom-shader-animation = always
+#custom-shader = shaders/cursor_warp.glsl
 # ===========================
 # KEYBINDINGS
 # ===========================

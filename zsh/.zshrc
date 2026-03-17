@@ -62,8 +62,8 @@ zinit load zsh-users/zsh-autosuggestions
 zinit ice wait'0c' lucid atload'bindkey "^[[A" history-substring-search-up; bindkey "^[[B" history-substring-search-down'
 zinit light zsh-users/zsh-history-substring-search
 
-# Additional completions - load after 1 second
-zinit ice wait'1' lucid blockf atpull'zinit creinstall -q .'
+# Additional completions - load BEFORE compinit (no wait)
+zinit ice lucid blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
 
 # FZF tab completion - load after 1 second
@@ -203,5 +203,4 @@ command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
 
 # AWS CLI autocomplete
 autoload bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
 complete -C '/opt/homebrew/bin/aws_completer' aws
