@@ -1,123 +1,76 @@
 # Dotfiles
 
-Personal dotfiles setup optimized for DevOps workflows, managed with GNU Stow.
+Personal dotfiles for macOS, managed with [chezmoi](https://www.chezmoi.io/).
 
-## 📦 What's Included
+## What's Included
 
-### Core Tools
-- **Neovim** - Lightning-fast navigation with FZF and Telescope, LSP support, DevOps workflows
-- **ZSH** - Extended shell with custom aliases, functions, and performance optimizations
-- **Git** - Version control configuration with delta diffs and workflow aliases
-- **Kitty** - Terminal emulator with theme system and keyboard shortcuts
+**Core:** Neovim (NvChad-based with LSP, FZF, Telescope), ZSH (Zinit, p10k, lazy-loading), Git (delta diffs, difftastic, aliases), Kitty + Ghostty terminals
 
-### Development Tools
-- **Go** - Development environment with linter configuration
-- **Atuin** - Advanced shell history with fuzzy search and sync
-- **Broot** - Interactive directory tree navigation
-- **Ripgrep** - Fast text search with configuration
-- **LSD** - Modern ls replacement
+**Dev tools:** Go (revive linter), Atuin (shell history), Broot, Ripgrep, LSD, Lazygit
 
-### System Tools
-- **Btop** - Resource monitor with beautiful TUI
-- **Ghostty** - GPU-accelerated terminal emulator
-- **LinearMouse** - Mouse acceleration configuration
+**System:** Btop, LinearMouse
 
-## 🚀 Installation
+## Bootstrap
 
-### Quick Start (macOS)
+### Fresh Mac (no Homebrew needed)
 
 ```bash
-git clone <your-repo-url> ~/dotfiles
-cd ~/dotfiles
-./install.sh
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply abhilast
 ```
 
-The installer handles:
-- Homebrew and CLI tools installation
-- ZSH setup with Zinit and plugins
-- Neovim configuration and plugin sync
-- GNU Stow symlink creation
-- Path fixes for your environment
+### Existing Mac with Homebrew
 
-## 🤖 AI Workflow Quick Reference
+```bash
+brew install chezmoi && chezmoi init --apply abhilast
+```
 
-Core shell helpers (from `zsh/.zsh_aliases` and `zsh/.zsh_functions`):
+What happens: chezmoi prompts for email/name, installs Homebrew (if missing), runs `brew bundle`, applies all configs, syncs Neovim plugins, and sets the default shell to ZSH.
+
+## Daily Workflow
+
+```bash
+chezmoi edit ~/.zshrc       # Edit config (opens in editor)
+chezmoi apply               # Apply all changes to $HOME
+chezmoi diff                # Preview what would change
+chezmoi cd                  # Enter the source directory
+chezmoi update              # Pull latest + apply (cross-machine sync)
+```
+
+## Adding New Tools
+
+```bash
+chezmoi cd
+# Edit Brewfile, add the tool
+# Add config files with chezmoi naming (dot_ prefix)
+chezmoi apply
+git add . && git commit && git push
+```
+
+## Shell Helpers
+
+Core shell helpers (from ZSH aliases and functions):
 
 ```bash
 pj              # fuzzy-switch projects
 wtn <branch>    # create/switch to a git worktree branch
 wtl             # list/jump worktrees
-wtr <target>    # remove a worktree (safe checks)
-prn             # push current branch + open PR via gh
-cc [dir] [...]  # launch Claude (optional directory)
-cx [dir] [...]  # launch Codex (optional directory)
+wtr <target>    # remove a worktree
+prn             # push branch + open PR via gh
 ```
 
-## 📚 Component Documentation
+## Scripts
 
-### Core Components
-- [**Neovim**](nvim/README.md) - Text editor with LSP, plugins, and DevOps tools
-- [**ZSH**](zsh/README.md) - Shell with aliases, functions, and performance features
-- [**Git**](git/README.md) - Version control configuration and aliases
-- [**Kitty**](kitty/README.md) - Terminal emulator configuration
-- [**Atuin**](atuin/README.md) - Advanced shell history
+Utility scripts in `scripts/` (on PATH via `.zshenv`):
 
-### Development Tools
-- [**Go**](go/README.md) - Go development environment
-- [**Broot**](broot/README.md) - Tree view and file navigation
-- [**Ripgrep**](ripgrep/README.md) - Text search configuration
-- [**LSD**](lsd/README.md) - Modern ls replacement
+- `benchmark.sh` -- shell startup benchmarking with hyperfine
+- `profile-zsh-startup.sh` -- detailed zsh startup profiling
+- `ghostty-theme-switcher.sh` -- switch Ghostty themes
+- `wt` -- git worktree management helper
+- `scripts/mac/` -- macOS helpers (dark mode, dock, audio)
 
-### System Tools
-- [**Btop**](btop/README.md) - System monitor
-- [**Ghostty**](ghostty/README.md) - GPU-accelerated terminal
-- [**LinearMouse**](linearmouse/README.md) - Mouse configuration
+## Git Worktree Helper (`wt`)
 
-### Utilities
-- [**Scripts**](scripts/README.md) - Automation scripts and utilities
-- [**Scratchpad**](scratchpad/README.md) - Notes and temporary files
-
-## 🔄 Sync Between Machines
-
-Synchronize dotfiles across machines:
-
-```bash
-~/dotfiles/scripts/sync.sh
-```
-
-This script:
-- Pulls latest changes from git
-- Runs `brew bundle` to sync packages
-- Re-stows all configurations
-
-### Workflow
-
-**Adding new tools:**
-```bash
-brew install new-tool
-cd ~/dotfiles
-brew bundle dump --force
-git add .
-git commit -m "Add new-tool"
-git push
-```
-
-**Syncing to other machines:**
-```bash
-~/dotfiles/scripts/sync.sh
-```
-
-## 💡 Tips
-
-- Run `./scripts/health-check.sh` after installation to verify setup
-- Use `./scripts/benchmark.sh` to check shell startup performance
-- See component READMEs for detailed configuration options
-- Backup configs with `./scripts/backup-configs.sh` before major changes
-
-
-## 🌳 Git Worktrees Helper (`wt`)
-
-A small helper script is available at `~/dotfiles/scripts/wt` (and on `PATH` after shell reload).
+A helper script at `scripts/wt` (on PATH after shell reload):
 
 ```bash
 wt new cloudsync-pro hero-fix
@@ -134,3 +87,12 @@ Defaults:
 Overrides:
 - `WT_ROOT` to change workspace root
 - `WT_REMOTE_BASE` to change default branch base
+
+## Validation
+
+```bash
+chezmoi doctor              # Health check
+chezmoi verify              # All files match source
+chezmoi diff                # No drift
+hyperfine 'zsh -i -c exit'  # Startup benchmark (<200ms target)
+```
