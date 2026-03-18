@@ -90,6 +90,12 @@ clipboard-write = allow
 # ===========================
 # KEYBINDINGS
 # ===========================
+# Pass Alt+Arrow through to terminal apps (e.g. Zellij)
+keybind = alt+left=csi:1;3D
+keybind = alt+right=csi:1;3C
+keybind = alt+up=csi:1;3A
+keybind = alt+down=csi:1;3B
+
 # Essential keybindings only
 keybind = cmd+t=new_tab
 keybind = cmd+w=close_surface
