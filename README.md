@@ -1,6 +1,6 @@
 # Dotfiles
 
-Personal dotfiles for macOS, managed with [chezmoi](https://www.chezmoi.io/).
+Personal dotfiles for macOS and Ubuntu, managed with [chezmoi](https://www.chezmoi.io/).
 
 ## What's Included
 
@@ -12,19 +12,27 @@ Personal dotfiles for macOS, managed with [chezmoi](https://www.chezmoi.io/).
 
 ## Bootstrap
 
-### Fresh Mac (no Homebrew needed)
+### macOS
+
+```bash
+# Fresh Mac (no Homebrew needed):
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply abhilast
+
+# Or with Homebrew already installed:
+brew install chezmoi && chezmoi init --apply abhilast
+```
+
+What happens: chezmoi prompts for email/name, installs Homebrew (if missing), runs `brew bundle` to install all packages from `Brewfile`, applies all configs, syncs Neovim plugins, and sets the default shell to ZSH.
+
+### Ubuntu / Debian
 
 ```bash
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply abhilast
 ```
 
-### Existing Mac with Homebrew
+What happens: chezmoi prompts for email/name, installs base dependencies via `apt` (from `Aptfile`), applies all configs, syncs Neovim plugins, and sets the default shell to ZSH.
 
-```bash
-brew install chezmoi && chezmoi init --apply abhilast
-```
-
-What happens: chezmoi prompts for email/name, installs Homebrew (if missing), runs `brew bundle`, applies all configs, syncs Neovim plugins, and sets the default shell to ZSH.
+The bootstrap scripts detect the OS automatically -- `Brewfile` is used on macOS, `Aptfile` on Linux. All config files are identical across platforms; only the package installation differs.
 
 ## Daily Workflow
 
@@ -40,7 +48,7 @@ chezmoi update              # Pull latest + apply (cross-machine sync)
 
 ```bash
 chezmoi cd
-# Edit Brewfile, add the tool
+# Add the tool to Brewfile (macOS) and/or Aptfile (Ubuntu)
 # Add config files with chezmoi naming (dot_ prefix)
 chezmoi apply
 git add . && git commit && git push
