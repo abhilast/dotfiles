@@ -3,6 +3,7 @@ CLAUDE.md
 AGENTS.md
 LICENSE
 Brewfile
+Aptfile
 .planning
 .planning/**
 .editorconfig

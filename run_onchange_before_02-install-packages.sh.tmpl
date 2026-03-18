@@ -1,9 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
+{{ if eq .chezmoi.os "darwin" -}}
 # Brewfile hash: {{ include "Brewfile" | sha256sum }}
 
-# Bootstrap Homebrew PATH (not yet in shell environment)
+# Bootstrap Homebrew PATH
 if [[ -x "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [[ -x "/usr/local/bin/brew" ]]; then
@@ -11,7 +12,7 @@ elif [[ -x "/usr/local/bin/brew" ]]; then
 fi
 
 if ! command -v brew &>/dev/null; then
-  echo "ERROR: Homebrew not found. Run chezmoi apply again after installing Homebrew."
+  echo "ERROR: Homebrew not found."
   exit 1
 fi
 
@@ -21,3 +22,13 @@ brew bundle --file=/dev/stdin <<'BREWFILE'
 BREWFILE
 
 echo "Brew bundle complete"
+{{ else if eq .chezmoi.os "linux" -}}
+# Aptfile hash: {{ include "Aptfile" | sha256sum }}
+
+echo "Installing packages via apt..."
+sudo apt-get update -qq
+sudo apt-get install -y -qq \
+{{ include "Aptfile" }}
+
+echo "Apt packages installed"
+{{ end -}}

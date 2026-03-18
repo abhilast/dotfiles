@@ -20,6 +20,7 @@ brew "zoxide"          # Smart cd replacement (used in zz alias)
 brew "tree"            # Directory tree viewer (used as fallback)
 brew "broot"           # Interactive directory navigation (has config)
 brew "chezmoi"         # Dotfiles manager
+brew "zellij"          # Terminal multiplexer
 
 # ===========================
 # DEVELOPMENT TOOLS
