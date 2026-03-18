@@ -20,9 +20,17 @@ fi
 # Ensure target shell is in /etc/shells
 if ! grep -qF "$TARGET_SHELL" /etc/shells; then
   echo "Adding $TARGET_SHELL to /etc/shells (requires sudo)..."
-  echo "$TARGET_SHELL" | sudo tee -a /etc/shells >/dev/null
+  echo "$TARGET_SHELL" | sudo tee -a /etc/shells >/dev/null || {
+    echo "WARNING: Could not add $TARGET_SHELL to /etc/shells"
+    echo "Run manually: echo '$TARGET_SHELL' | sudo tee -a /etc/shells && chsh -s $TARGET_SHELL"
+    exit 0
+  }
 fi
 
 echo "Setting default shell to $TARGET_SHELL..."
-chsh -s "$TARGET_SHELL"
+chsh -s "$TARGET_SHELL" || {
+  echo "WARNING: chsh failed (needs interactive password)"
+  echo "Run manually: chsh -s $TARGET_SHELL"
+  exit 0
+}
 echo "Default shell set to $TARGET_SHELL"
