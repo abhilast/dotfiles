@@ -8,10 +8,7 @@ eza
 tree
 neovim
 git
-git-delta
 jq
 curl
 wget
 btop
-zellij
-hyperfine
