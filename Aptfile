@@ -1,24 +1,17 @@
-  # Shell & environment
-  direnv \
-  zsh \
-  # File search & navigation
-  fd-find \
-  fzf \
-  ripgrep \
-  bat \
-  # Directory & file management
-  eza \
-  tree \
-  # Development tools
-  neovim \
-  git \
-  git-delta \
-  jq \
-  curl \
-  wget \
-  # System monitoring
-  btop \
-  # Terminal multiplexer
-  zellij \
-  # Benchmarking
-  hyperfine
+direnv
+zsh
+fd-find
+fzf
+ripgrep
+bat
+eza
+tree
+neovim
+git
+git-delta
+jq
+curl
+wget
+btop
+zellij
+hyperfine
