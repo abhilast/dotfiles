@@ -285,8 +285,8 @@ web_client {
  
 // Theme: auto-selected based on system appearance at chezmoi apply time
 {{ if eq .chezmoi.os "darwin" -}}
-{{   $dark := output "defaults" "read" "-g" "AppleInterfaceStyle" | trim -}}
-{{   if eq $dark "Dark" -}}
+{{   $appearance := output "sh" "-c" "defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light" | trim -}}
+{{   if eq $appearance "Dark" -}}
 theme "tokyo-night-dark"
 {{   else -}}
 theme "tokyo-night-light"
