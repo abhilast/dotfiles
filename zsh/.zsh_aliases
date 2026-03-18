@@ -234,6 +234,11 @@ alias hclean='atuin history clean'          # Clean up history
 alias in='_init_node'
 
 # ===========================
+# 🖥️ DISPLAY / MONITOR HELPERS
+# ===========================
+alias arzopa-hidpi='~/dotfiles/scripts/mac/fix-arzopa-hidpi.sh'
+
+# ===========================
 # 🤖 AI/CODE WORKFLOW SHORTCUTS
 # ===========================
 # Thin aliases for existing helper functions

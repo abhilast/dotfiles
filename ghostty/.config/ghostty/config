@@ -106,6 +106,12 @@ keybind = cmd+c=copy_to_clipboard
 keybind = cmd+v=paste_from_clipboard
 keybind = ctrl+shift+r=reload_config
 
+# Unbind Alt+Arrow defaults so zellij (and other TUI apps) receive them
+keybind = alt+arrow_left=unbind
+keybind = alt+arrow_right=unbind
+keybind = alt+arrow_up=unbind
+keybind = alt+arrow_down=unbind
+
 # Split pane management
 keybind = cmd+d=new_split:right
 keybind = cmd+shift+d=new_split:down
