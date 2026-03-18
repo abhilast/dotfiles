@@ -82,11 +82,11 @@ vim.api.nvim_create_augroup("LargeFileOptimizations", { clear = true })
 -- Disable features for large files (>1MB)
 vim.api.nvim_create_autocmd("BufReadPre", {
   group = "LargeFileOptimizations",
-  callback = function()
+  callback = function(args)
     local file = vim.fn.expand("<afile>")
     local size = vim.fn.getfsize(file)
     if size > 1024 * 1024 then -- 1MB
-      vim.cmd("syntax off")
+      vim.b[args.buf].large_file = true
       vim.opt_local.spell = false
       vim.opt_local.swapfile = false
       vim.opt_local.undofile = false
@@ -96,6 +96,17 @@ vim.api.nvim_create_autocmd("BufReadPre", {
       vim.opt_local.signcolumn = "no"
       vim.opt_local.foldmethod = "manual"
       vim.opt_local.wrap = false
+    end
+  end,
+})
+
+-- Disable syntax and treesitter after file is read (so it sticks after filetype detection)
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = "LargeFileOptimizations",
+  callback = function(args)
+    if vim.b[args.buf].large_file then
+      vim.opt_local.syntax = "off"
+      pcall(vim.treesitter.stop, args.buf)
     end
   end,
 })
