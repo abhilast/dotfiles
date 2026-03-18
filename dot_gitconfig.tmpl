@@ -83,7 +83,16 @@ rebase = true
 
 [delta]
     navigate = true
+{{- if eq .chezmoi.os "darwin" }}
+{{-   $dark := output "defaults" "read" "-g" "AppleInterfaceStyle" | trim }}
+{{-   if eq $dark "Dark" }}
     light = false
+{{-   else }}
+    light = true
+{{-   end }}
+{{- else }}
+    light = false
+{{- end }}
     side-by-side = true
     line-numbers = true
 
