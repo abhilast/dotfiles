@@ -37,4 +37,11 @@ APTFILE
 echo "$PACKAGES" | grep -v '^$' | xargs sudo apt-get install -y -qq
 
 echo "Apt packages installed"
+
+# Snap packages (not available in apt)
+if command -v snap &>/dev/null; then
+  echo "Installing snap packages..."
+  sudo snap install zellij --classic || true
+  echo "Snap packages installed"
+fi
 {{ end -}}
