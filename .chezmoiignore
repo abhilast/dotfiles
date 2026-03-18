@@ -1,0 +1,16 @@
+README.md
+CLAUDE.md
+AGENTS.md
+LICENSE
+Brewfile
+.planning
+.planning/**
+.editorconfig
+.envrc
+.gitignore
+.nvimlog
+scripts
+scripts/**
+install.sh
+.claude
+.claude/**

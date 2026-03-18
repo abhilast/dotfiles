@@ -1,0 +1,104 @@
+[user]
+	email = {{ .email }}
+	name = {{ .name }}
+[pull]
+rebase = true
+
+
+[alias]
+    # Status and info
+    st = status -sb
+    ll = log --oneline --graph --decorate -15
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    
+    # Workflow
+    co = checkout
+    br = branch
+    cm = commit -m
+    cam = commit -am
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    
+    # Advanced
+    find = "!git log --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%an]' --decorate --date=short --grep"
+    cleanup = "!git branch --merged | grep -v '\\*\\|master\\|main\\|develop' | xargs -n 1 git branch -d"
+    
+    # Diff shortcuts
+    d = diff
+    dc = diff --cached
+    dt = difftool
+    dtc = difftool --cached
+    
+    # Branch management
+    brd = branch -d
+    brD = branch -D
+    
+    # Stash shortcuts
+    s = stash
+    sp = stash pop
+    sl = stash list
+    
+    # Remote
+    f = fetch
+    fo = fetch origin
+    p = push
+    pl = pull
+    
+    # Rebase
+    rb = rebase
+    rbi = rebase -i
+    rbc = rebase --continue
+    rba = rebase --abort
+
+[diff]
+    tool = difftastic
+    algorithm = histogram
+    colorMoved = default
+
+[difftool]
+    prompt = false
+
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+
+[difftool "nvimdiff"]
+    cmd = nvim -d $LOCAL $REMOTE
+
+[merge]
+    tool = nvimdiff
+    conflictstyle = diff3
+
+[mergetool "nvimdiff"]
+    cmd = nvim -d $LOCAL $MERGED $REMOTE
+    
+[pager]
+    difftool = true
+
+[core]
+    # Use delta for better diffs
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[delta]
+    navigate = true
+    light = false
+    side-by-side = true
+    line-numbers = true
+
+[rebase]
+    autoStash = true
+
+[init]
+	defaultBranch = main
+
+[color]
+	ui = auto
+
+[credential]
+	helper =
+	helper = /usr/local/share/gcm-core/git-credential-manager
+
+[credential "https://dev.azure.com"]
+	useHttpPath = true

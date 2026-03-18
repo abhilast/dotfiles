@@ -19,7 +19,7 @@ brew "eza"             # Modern ls replacement (used in fzf previews)
 brew "zoxide"          # Smart cd replacement (used in zz alias)
 brew "tree"            # Directory tree viewer (used as fallback)
 brew "broot"           # Interactive directory navigation (has config)
-brew "stow"            # Dotfiles symlink manager (used in Makefile)
+brew "chezmoi"         # Dotfiles manager
 
 # ===========================
 # DEVELOPMENT TOOLS

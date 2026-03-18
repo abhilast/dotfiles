@@ -1,0 +1,10 @@
+{{- $email := promptStringOnce . "email" "Git email address" -}}
+{{- $name := promptStringOnce . "name" "Git user name" -}}
+{{- $isWork := promptBoolOnce . "isWork" "Is this a work machine" -}}
+{{- $workspacePath := promptStringOnce . "workspacePath" "Workspace path (default: ~/Developer/repos)" -}}
+
+[data]
+  email = {{ $email | quote }}
+  name = {{ $name | quote }}
+  isWork = {{ $isWork }}
+  workspacePath = {{ $workspacePath | quote }}
