@@ -45,7 +45,7 @@ brew "powerlevel10k"   # ZSH theme
 # ===========================
 # LANGUAGE-SPECIFIC TOOLS
 # ===========================
-brew "bun"                    # JavaScript runtime and toolkit
+brew "oven-sh/bun/bun"        # JavaScript runtime and toolkit
 brew "dotnet"                 # .NET SDK (needed to install csharp-ls via dotnet tool)
 
 # ===========================
