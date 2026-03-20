@@ -22,10 +22,11 @@ vim.filetype.add({
     [".github/workflows/*"] = "yaml.github",
     ["kustomization.yaml"] = "yaml.kubernetes",
     ["kustomization.yml"] = "yaml.kubernetes",
+    -- Treat .env files as dotenv, not sh — prevents bashls/shellcheck from attaching
+    [".env"] = "dotenv",
   },
   pattern = {
-    -- Treat .env files as dotenv, not sh — prevents bashls/shellcheck from attaching
-    ["%.env$"] = "dotenv",
+    -- Treat .env.local, .env.production, etc. as dotenv
     ["%.env%.%a+$"] = "dotenv",
     [".*%.tf%.j2"] = "terraform",
     [".*%.yaml%.j2"] = "yaml.ansible",

@@ -201,3 +201,6 @@ command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
 # AWS CLI autocomplete
 autoload bashcompinit && bashcompinit
 complete -C '/opt/homebrew/bin/aws_completer' aws
+
+# bun completions
+[ -s "/Users/ab/.bun/_bun" ] && source "/Users/ab/.bun/_bun"
