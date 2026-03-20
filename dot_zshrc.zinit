@@ -98,49 +98,9 @@ if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
   }
   
   # ===========================
-  # PERFORMANCE: NVM lazy loading (unchanged)
+  # PERFORMANCE: Node.js lazy loading (via fnm)
   # ===========================
-  export NVM_DIR="$HOME/.nvm"
-  
-  _load_nvm() {
-    if ! command -v nvm >/dev/null 2>&1 || [[ $(type nvm) == *"function"* ]]; then
-      [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
-      [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
-    fi
-  }
-  
-  nvm() {
-    unfunction nvm 2>/dev/null
-    _load_nvm
-    nvm "$@"
-  }
-  
-  node() {
-    unfunction node 2>/dev/null
-    _load_nvm
-    if nvm list default >/dev/null 2>&1; then
-      nvm use default >/dev/null 2>&1
-    fi
-    node "$@"
-  }
-  
-  npm() {
-    unfunction npm 2>/dev/null  
-    _load_nvm
-    if nvm list default >/dev/null 2>&1; then
-      nvm use default >/dev/null 2>&1
-    fi
-    npm "$@"
-  }
-  
-  npx() {
-    unfunction npx 2>/dev/null
-    _load_nvm
-    if nvm list default >/dev/null 2>&1; then
-      nvm use default >/dev/null 2>&1
-    fi
-    npx "$@"
-  }
+  # Node lazy loading is handled by .zsh_functions_lazy
   
   # ===========================
   # PERFORMANCE: Conda lazy loading (unchanged)

@@ -209,14 +209,13 @@ alias fix-comp='reload-completions'         # Fix completion issues
 alias reset-comp='rm -f ~/.zcompdump && reload-completions'  # Reset completion cache
 
 # ===========================
-# 🚀 NODE.JS & NVM ALIASES - PERFORMANCE OPTIMIZED
+# 🚀 NODE.JS & FNM ALIASES
 # ===========================
-# PERFORMANCE: NVM and Node.js shortcuts
-alias test-node='test-nvm'                  # Test NVM lazy loading
 alias node-v='node --version'               # Quick Node version check
 alias npm-v='npm --version'                 # Quick NPM version check
-alias nvm-v='nvm --version'                 # Quick NVM version check
-alias nvm-ls='nvm list'                     # List installed Node versions
+alias fnm-ls='fnm list'                     # List installed Node versions
+alias fnm-use='fnm use'                     # Use a specific Node version
+alias fnm-default='fnm default'             # Set default Node version
 
 # ===========================
 # 📚 ATUIN HISTORY DATABASE ALIASES

@@ -114,19 +114,10 @@ theme() {
 # NODE.JS & NPM LAZY LOADING
 # ============================================================================
 
-# Initialize Node environment (detects and loads version manager)
+# Initialize Node environment via fnm
 _init_node() {
-    # Check which Node version manager is available and initialize it
     if command -v fnm &>/dev/null; then
         eval "$(fnm env)"
-    elif [[ -s "$NVM_DIR/nvm.sh" ]]; then
-        source "$NVM_DIR/nvm.sh"
-    elif command -v asdf &>/dev/null; then
-        if [[ -s "$ASDF_DIR/asdf.sh" ]]; then
-            source "$ASDF_DIR/asdf.sh"
-        elif [[ -s "$HOME/.asdf/asdf.sh" ]]; then
-            source "$HOME/.asdf/asdf.sh"
-        fi
     fi
 }
 
