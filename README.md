@@ -8,7 +8,27 @@ Personal dotfiles for macOS and Ubuntu, managed with [chezmoi](https://www.chezm
 
 **Dev tools:** Go (revive linter), Atuin (shell history), Broot, Ripgrep, LSD, Lazygit
 
-**System:** Btop, LinearMouse
+**System:** Btop, Zellij, LinearMouse
+
+## Per-Tool Documentation
+
+Each tool has its own README with detailed configuration reference:
+
+| Tool | Config Location | Documentation |
+|------|----------------|---------------|
+| ZSH | `dot_zshrc`, `dot_zsh_*` | [ZSH.md](ZSH.md) -- aliases, functions, completions, performance |
+| Neovim | `dot_config/nvim/` | [README](dot_config/nvim/README.md) -- keybindings, plugins, LSP |
+| Ghostty | `dot_config/ghostty/` | [README](dot_config/ghostty/README.md) -- themes, profiles, splits |
+| Kitty | `dot_config/kitty/` | [README](dot_config/kitty/README.md) -- shortcuts, themes, diff |
+| Git | `dot_gitconfig.tmpl` | [below](#git-configuration) -- aliases, delta, difftastic |
+| Atuin | `dot_config/atuin/` | [README](dot_config/atuin/README.md) -- shell history sync |
+| Broot | `dot_config/broot/` | [README](dot_config/broot/README.md) -- tree navigation, verbs |
+| Btop | `dot_config/btop/` | [README](dot_config/btop/README.md) -- resource monitoring |
+| Lazygit | `dot_config/lazygit/` | [README](dot_config/lazygit/README.md) -- git TUI with difftastic |
+| Zellij | `dot_config/zellij/` | [README](dot_config/zellij/README.md) -- terminal multiplexer, vim keys |
+| LSD | `dot_config/lsd/` | [README](dot_config/lsd/README.md) -- modern ls replacement |
+| LinearMouse | `dot_config/linearmouse/` | [README](dot_config/linearmouse/README.md) -- mouse acceleration |
+| Scripts | `scripts/` | [README](scripts/README.md) -- utility scripts |
 
 ## Bootstrap
 
@@ -95,6 +115,40 @@ Defaults:
 Overrides:
 - `WT_ROOT` to change workspace root
 - `WT_REMOTE_BASE` to change default branch base
+
+## Git Configuration
+
+Git config lives at root level (`dot_gitconfig.tmpl`) since it deploys to `~/.gitconfig`. It uses chezmoi templates to set user email/name from prompts and auto-detect macOS dark/light mode for delta.
+
+### Aliases
+
+| Alias | Command | Purpose |
+|-------|---------|---------|
+| `st` | `status -sb` | Short status |
+| `ll` | `log --oneline --graph -15` | Compact log |
+| `lg` | `log --graph --pretty=...` | Decorated log |
+| `co` | `checkout` | Switch branches |
+| `br` | `branch` | Branch management |
+| `cm` | `commit -m` | Quick commit |
+| `cam` | `commit -am` | Commit all with message |
+| `d` / `dc` | `diff` / `diff --cached` | View changes |
+| `dt` / `dtc` | `difftool` / `difftool --cached` | Difftastic view |
+| `s` / `sp` / `sl` | `stash` / `stash pop` / `stash list` | Stash shortcuts |
+| `f` / `fo` | `fetch` / `fetch origin` | Fetch |
+| `p` / `pl` | `push` / `pull` | Push/pull |
+| `rb` / `rbi` | `rebase` / `rebase -i` | Rebase |
+| `cleanup` | merged branch cleanup | Delete merged branches |
+| `find` | log grep | Search commit messages |
+
+### Diff Tools
+
+- **Delta** -- primary pager for all git diffs. Auto-detects macOS appearance (dark/light) via chezmoi template. Side-by-side with line numbers.
+- **Difftastic** -- structural diff tool (`git dt` / `git dtc`). Shows AST-level changes instead of line-level.
+- **Nvimdiff** -- merge conflict resolution (`git mergetool`). Uses diff3 conflict style.
+
+### Chezmoi Template Features
+
+The git config uses `{{ .email }}` and `{{ .name }}` from chezmoi's data prompts, and detects macOS `AppleInterfaceStyle` at `chezmoi apply` time to set `delta.light` accordingly.
 
 ## Validation
 
