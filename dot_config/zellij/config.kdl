@@ -283,17 +283,10 @@ web_client {
 // 
 // simplified_ui true
  
-// Theme: auto-selected based on system appearance at chezmoi apply time
-{{ if eq .chezmoi.os "darwin" -}}
-{{   $appearance := output "sh" "-c" "defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light" | trim -}}
-{{   if eq $appearance "Dark" -}}
-theme "tokyo-night-dark"
-{{   else -}}
-theme "tokyo-night-light"
-{{   end -}}
-{{ else -}}
-theme "tokyo-night-dark"
-{{ end -}}
+// Choose the theme that is specified in the themes section.
+// Default: default
+// 
+// theme "dracula"
  
 // Choose the base input mode of zellij.
 // Default: normal
@@ -541,32 +534,3 @@ show_startup_tips false
 // can be useful for removing wrappers around commands
 // Note: be sure to escape backslashes and similar characters properly
 // post_command_discovery_hook "echo $RESURRECT_COMMAND | sed <your_regex_here>"
-
-themes {
-    tokyo-night-dark {
-        fg "#a9b1d6"
-        bg "#1a1b26"
-        black "#32344a"
-        red "#f7768e"
-        green "#9ece6a"
-        yellow "#e0af68"
-        blue "#7aa2f7"
-        magenta "#ad8ee6"
-        cyan "#449dab"
-        white "#787c99"
-        orange "#ff9e64"
-    }
-    tokyo-night-light {
-        fg "#343b58"
-        bg "#d5d6db"
-        black "#0f0f14"
-        red "#8c4351"
-        green "#485e30"
-        yellow "#8f5e15"
-        blue "#34548a"
-        magenta "#5a4a78"
-        cyan "#0f4b6e"
-        white "#343b58"
-        orange "#965027"
-    }
-}
