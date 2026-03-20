@@ -47,6 +47,7 @@ brew "powerlevel10k"   # ZSH theme
 # ===========================
 brew "oven-sh/bun/bun"        # JavaScript runtime and toolkit
 brew "dotnet"                 # .NET SDK (needed to install csharp-ls via dotnet tool)
+brew "fnm"                    # fast node manager
 
 # ===========================
 # LSP SERVERS (Claude Code / LSP plugins)
