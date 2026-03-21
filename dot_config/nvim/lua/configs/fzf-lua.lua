@@ -94,8 +94,8 @@ fzf.setup({
     file_icons = true,
     color_icons = true,
     find_opts = [[-type f -not -path '*/\\.git/*' -printf '%P\\n']],
-    rg_opts = "--color=never --files --hidden --follow -g '!.git' -g '!node_modules' -g '!.terraform' -g '!target' -g '!build' -g '!dist'",
-    fd_opts = "--color=never --type f --hidden --follow --exclude .git --exclude node_modules --exclude .terraform --exclude target --exclude build --exclude dist",
+    rg_opts = "--color=never --files --hidden --follow -g '!.git' -g '!node_modules' -g '!.terraform' -g '!target' -g '!build' -g '!dist' -g '!Library' -g '!Applications' -g '!.Trash' -g '!Movies' -g '!Music' -g '!Pictures' -g '!Downloads' -g '!Desktop' -g '!Documents' -g '!Public' -g '!.npm' -g '!.bun' -g '!go' -g '!.docker' -g '!.orbstack' -g '!.cache' -g '!.local' -g '!.kube' -g '!Google Drive'",
+    fd_opts = "--color=never --type f --hidden --follow --exclude .git --exclude node_modules --exclude .terraform --exclude target --exclude build --exclude dist --exclude Library --exclude Applications --exclude .Trash --exclude Movies --exclude Music --exclude Pictures --exclude Downloads --exclude Desktop --exclude Documents --exclude Public --exclude .npm --exclude .bun --exclude go --exclude .docker --exclude .orbstack --exclude .cache --exclude .local --exclude .kube --exclude 'Google Drive'",
     actions = {
       ["alt-i"] = { fzf.actions.toggle_ignore },
       ["alt-h"] = { fzf.actions.toggle_hidden },
