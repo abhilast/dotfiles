@@ -563,6 +563,7 @@ Functions are split across three files based on loading strategy:
 | `reload-completions` | `.zsh_functions` | Remove `.zcompdump` and reinitialize completions |
 | `test-nvm` | `.zsh_functions` | Test Node.js lazy loading (checks nvm, node, npm) |
 | `cc [dir] [-- args]` | `.zsh_functions` | Launch Claude Code, optionally in a target directory |
+| `claude-yolo [session-id]` | `.zsh_functions` | Resume a Claude Code session with `--dangerously-skip-permissions` (opens picker if no ID) |
 | `cx [dir] [-- args]` | `.zsh_functions` | Launch Codex, optionally in a target directory |
 | `project` | `.zsh_functions_lazy` | Fuzzy project finder across Developer/repos/dotfiles/Projects |
 | `ghclone <repo> [dest]` | `.zsh_functions_lazy` | Clone a GitHub repo (accepts `user/repo` shorthand) and cd into it |
