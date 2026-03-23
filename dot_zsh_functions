@@ -3,6 +3,12 @@
 # Optimized functions with better error handling and performance
 # ===========================
 
+# Resume claude session with --dangerously-skip-permissions
+# Usage: claude-yolo [session-id]  (opens picker if no id given)
+claude-yolo() {
+  claude --dangerously-skip-permissions --resume "${1-}"
+}
+
 # ===========================
 # 📦 EXTRACTORS - PERFORMANCE OPTIMIZED
 # ===========================
