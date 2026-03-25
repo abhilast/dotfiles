@@ -46,7 +46,6 @@ brew "powerlevel10k"   # ZSH theme
 # LANGUAGE-SPECIFIC TOOLS
 # ===========================
 brew "oven-sh/bun/bun"        # JavaScript runtime and toolkit
-brew "dotnet"                 # .NET SDK (needed to install csharp-ls via dotnet tool)
 brew "fnm"                    # fast node manager
 
 # ===========================
@@ -55,16 +54,11 @@ brew "fnm"                    # fast node manager
 brew "llvm"                        # clangd (C/C++)
 brew "gopls"                       # gopls (Go)
 brew "jdtls"                       # jdtls (Java)
-brew "kotlin-language-server"      # kotlin-language-server (Kotlin)
 brew "lua-language-server"         # lua-language-server (Lua)
 brew "pyright"                     # pyright-langserver (Python)
 brew "rust-analyzer"               # rust-analyzer (Rust)
 brew "swift"                       # sourcekit-lsp (Swift)
 brew "typescript-language-server"  # typescript-language-server (TypeScript)
-# NOTE: csharp-ls is not currently available as a Homebrew formula; install with:
-# dotnet tool install --global csharp-ls
-# NOTE: intelephense is not currently available as a Homebrew formula; install with:
-# npm i -g intelephense
 
 # ===========================
 # BENCHMARKING & UTILITIES
@@ -83,6 +77,7 @@ cask "git-credential-manager" # Git credential helper (referenced in .gitconfig)
 cask "miniconda"              # Python environment manager (lazy loaded in zshrc)
 cask "kitty"                  # Terminal emulator (has config in dotfiles)
 cask "linearmouse"            # Mouse configuration tool (has config)
+brew "stats"                  # CPU, Memory, and Bandwidth stats on the menu ar.
 
 # ===========================
 # FONTS
