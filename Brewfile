@@ -77,7 +77,6 @@ cask "git-credential-manager" # Git credential helper (referenced in .gitconfig)
 cask "miniconda"              # Python environment manager (lazy loaded in zshrc)
 cask "kitty"                  # Terminal emulator (has config in dotfiles)
 cask "linearmouse"            # Mouse configuration tool (has config)
-brew "stats"                  # CPU, Memory, and Bandwidth stats on the menu ar.
 
 # ===========================
 # FONTS
