@@ -57,7 +57,6 @@ brew "jdtls"                       # jdtls (Java)
 brew "lua-language-server"         # lua-language-server (Lua)
 brew "pyright"                     # pyright-langserver (Python)
 brew "rust-analyzer"               # rust-analyzer (Rust)
-brew "swift"                       # sourcekit-lsp (Swift)
 brew "typescript-language-server"  # typescript-language-server (TypeScript)
 
 # ===========================
