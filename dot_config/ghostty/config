@@ -6,10 +6,7 @@
 # ===========================
 # APPEARANCE & THEME
 # ===========================
-#theme = Gruvbox Dark
-#theme = Apple System Colors Light
-#theme = Catppuccin Latte
-theme = light:Builtin Light,dark:Nord
+theme = Gruvbox Dark
 #background-opacity = 0.95
 # ===========================
 # FONT CONFIGURATION
@@ -38,7 +35,6 @@ window-save-state = always
 window-padding-x = 6
 window-padding-y = 4
 window-padding-balance = true
-#split-divider-color = #88c0d0
 split-divider-color = #ff8800
 
 # ===========================
@@ -47,6 +43,7 @@ split-divider-color = #ff8800
 confirm-close-surface = always
 quit-after-last-window-closed = true
 shell-integration = zsh
+command = /opt/homebrew/bin/zellij -l welcome
 
 # ===========================
 # SCROLLBACK
@@ -74,7 +71,6 @@ macos-titlebar-style = native
 # ===========================
 resize-overlay = never
 resize-overlay-position = center
-# resize-overlay-duration removed - using default since resize-overlay = never
 
 # ===========================
 # CLIPBOARD
@@ -85,8 +81,10 @@ clipboard-write = allow
 # ===========================
 # SHADERS
 # ===========================
-#custom-shader-animation = always
-#custom-shader = shaders/cursor_warp.glsl
+# custom-shader-animation = always
+#custom-shader = shaders/cursor_tail.glsl
+custom-shader = shaders/cursor_blaze_no_trail.glsl
+custom-shader = shaders/cursor_smear.glsl
 # ===========================
 # KEYBINDINGS
 # ===========================
