@@ -36,6 +36,7 @@ brew "gh"              # GitHub CLI
 # SYSTEM MONITORING
 # ===========================
 brew "btop"            # System monitor (has config directory)
+cask "stats"           # macOS menu bar system monitor (CPU, memory, disk, network)
 
 # ===========================
 # ZSH ENHANCEMENTS
