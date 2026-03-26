@@ -4,4 +4,4 @@
 CONF="$HOME/.config/zellij/config.kdl"
 TMPCONF="/tmp/zellij-themed.kdl"
 sed 's/^theme ".*"/theme "catppuccin-latte"/' "$CONF" > "$TMPCONF"
-exec /opt/homebrew/bin/zellij -l welcome --config "$TMPCONF"
+exec zellij -l welcome --config "$TMPCONF"
