@@ -72,8 +72,8 @@
         }
       },
       "pointer" : {
-        "acceleration" : 4.2429,
-        "speed" : 0.2446
+        "acceleration" : 4.25,
+        "speed" : 0.25
       },
       "scrolling" : {
         "acceleration" : {
