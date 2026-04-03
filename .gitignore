@@ -239,7 +239,14 @@ $RECYCLE.BIN/
 # AI stuff
 # ===========================
 .gemini-clipboard
-.claude/
+.claude/*
+!.claude/CLAUDE.md
+!.claude/settings.json
+!.claude/agents/
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/one-p-learning/
+!.claude/skills/architecture-doc/
 .aider.*
 .aider.tags.cache.v4/
 .hive/

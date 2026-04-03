@@ -130,6 +130,9 @@ fi
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' menu select
 
+# Gruvbox Dark theme for fzf (from junegunn/fzf ADVANCED.md)
+export FZF_THEME_COLOR="bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934"
+
 # FZF-tab completion styling (inherits system-aware fzf color palette)
 zstyle ':fzf-tab:*' fzf-command fzf
 zstyle ':fzf-tab:*' fzf-preview 'eza -la --color=always $realpath 2>/dev/null || ls -la $realpath'
